@@ -1,0 +1,11 @@
+# nvim — these are auto-managed by lazy.nvim
+nvim/lazy/
+nvim/.lazy/
+
+# Backup files
+*.bak
+*.swp
+*.swo
+
+# macOS junk
+.DS_Store
