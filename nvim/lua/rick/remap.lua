@@ -30,3 +30,26 @@ vim.keymap.set({"n", "v"}, "<leader>d", [["_d]], { desc = "delete without yankin
 -- quickfix list navigation
 vim.keymap.set("n", "<D-k>", "<cmd>cnext<CR>zz", { desc = "Next quickfix item" })
 vim.keymap.set("n", "<D-j>", "<cmd>cprev<CR>zz", { desc = "Previous quickfix item" })
+
+-- run current file
+vim.keymap.set("n", "<leader>r", function()
+    local ft = vim.bo.filetype
+    local file = vim.fn.expand("%")
+    local cmd
+
+    if ft == "python" then
+        cmd = "python3 " .. file
+    elseif ft == "go" then
+        cmd = "go run " .. file
+    elseif ft == "cpp" then
+        cmd = "g++ -std=c++20 " .. file .. " -o /tmp/run && /tmp/run"
+    elseif ft == "c" then
+        cmd = "gcc " .. file .. " -o /tmp/run && /tmp/run"
+    else
+        print("no run command, go add it for " .. ft)
+        return
+    end
+
+    vim.cmd("split | terminal " .. cmd)
+
+end, {desc = "Run current file"})
