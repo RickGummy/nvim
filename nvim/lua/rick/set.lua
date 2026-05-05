@@ -13,6 +13,7 @@ vim.opt.smartindent = true
 
 -- Wrap
 vim.opt.wrap = false
+vim.opt.whichwrap:append("<>[]hl")
 
 -- Search
 vim.opt.hlsearch = false
