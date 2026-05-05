@@ -1,4 +1,5 @@
 -- netrw
+-- LSP configurations (modern nvim 0.11+ API)
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex, { desc = "Open file explorer" })
 
 -- save and quit

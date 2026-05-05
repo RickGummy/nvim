@@ -36,7 +36,6 @@ require("lazy").setup({
     -- telescope, fuzzy finder
     {
         "nvim-telescope/telescope.nvim",
-        tag = "0.1.8",
         dependencies = { "nvim-lua/plenary.nvim" },
         config = function()
             local builtin = require("telescope.builtin")
@@ -168,6 +167,12 @@ require("lazy").setup({
                     vim.keymap.set("n", "<leader>f", function()
                         vim.lsp.buf.format({ async = true })
                     end, opts)
+                    vim.api.nvim_create_autocmd("BufWritePre", {
+                        buffer = event.buf,
+                        callback = function()
+                            vim.lsp.buf.format({ async = false })
+                        end,
+                    })
                     vim.keymap.set("n", "[d", function() vim.diagnostic.jump({ count = -1 }) end, opts)
                     vim.keymap.set("n", "]d", function() vim.diagnostic.jump({ count = 1 }) end, opts)
                     vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, opts)
