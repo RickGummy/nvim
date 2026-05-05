@@ -10,8 +10,8 @@ vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move highlighted line dow
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move highlighted line up" })
 
 -- keep cursor center when going up and down a page
-vim.keymap.set("n", "<D-d>", "<C-d>zz", { desc = "Move half a page down" })
-vim.keymap.set("n", "<D-u>", "<C-u>zz", { desc = "Move half a page up" })
+vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Move half a page down" })
+vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Move half a page up" })
 
 -- keep cursor centered when jumping from one search to another
 vim.keymap.set("n", "n", "nzzzv", { desc = "Next search" })
@@ -28,8 +28,8 @@ vim.keymap.set("n", "<leader>Y", [["+Y]], { desc = "Yank line to system clipboar
 vim.keymap.set({"n", "v"}, "<leader>d", [["_d]], { desc = "delete without yanking" })
 
 -- quickfix list navigation
-vim.keymap.set("n", "<D-k>", "<cmd>cnext<CR>zz", { desc = "Next quickfix item" })
-vim.keymap.set("n", "<D-j>", "<cmd>cprev<CR>zz", { desc = "Previous quickfix item" })
+vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz", { desc = "Next quickfix item" })
+vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz", { desc = "Previous quickfix item" })
 
 -- run current file
 vim.keymap.set("n", "<leader>r", function()
