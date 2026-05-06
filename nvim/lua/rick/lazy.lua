@@ -2,17 +2,17 @@
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
-	local lazyrepo = "https://github.com/folke/lazy.nvim.git"
-	local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
-	if vim.v.shell_error ~= 0 then
-		vim.api.nvim_echo({
-			{ "Failed to clone lazy.nvim:\n", "ErrorMsg" },
-			{ out, "WarningMsg" },
+    local lazyrepo = "https://github.com/folke/lazy.nvim.git"
+    local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+    if vim.v.shell_error ~= 0 then
+        vim.api.nvim_echo({
+            { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
+            { out,                            "WarningMsg" },
             { "\nPress any key to exit" },
-		}, true, {})
-		vim.fn.getchar()
-		os.exit(1)
-	end
+        }, true, {})
+        vim.fn.getchar()
+        os.exit(1)
+    end
 end
 vim.opt.rtp:prepend(lazypath)
 
@@ -21,17 +21,17 @@ require("lazy").setup({
 
     -- catppuccin
     {
-		"catppuccin/nvim",
-		name = "catppuccin",
-		priority = 1000,
-		config = function()
-			require("catppuccin").setup({
-				flavour = "mocha",
-				transparent_background = true,
-			})
-			vim.cmd.colorscheme("catppuccin")
-		end,
-	},
+        "catppuccin/nvim",
+        name = "catppuccin",
+        priority = 1000,
+        config = function()
+            require("catppuccin").setup({
+                flavour = "mocha",
+                transparent_background = true,
+            })
+            vim.cmd.colorscheme("catppuccin")
+        end,
+    },
 
     -- telescope, fuzzy finder
     {
@@ -71,33 +71,33 @@ require("lazy").setup({
             })
         end,
     },
-    
-        -- Mason
-        {
-            "williamboman/mason.nvim",
-            config = function()
-                require("mason").setup()
-            end,
-        },
 
-        {
-            "williamboman/mason-lspconfig.nvim",
-            dependencies = { "williamboman/mason.nvim" },
-            config = function()
-                require("mason-lspconfig").setup({
-                    ensure_installed = {
-                        "lua_ls",        -- Lua (for editing your nvim config)
-                        "pyright",       -- Python
-                        "ts_ls",         -- TypeScript / JavaScript
-                        "gopls",         -- Go
-                        "clangd",        -- C / C++
-                    },
-                })
-            end,
-        },
+    -- Mason
+    {
+        "williamboman/mason.nvim",
+        config = function()
+            require("mason").setup()
+        end,
+    },
 
-        -- LSP
-        -- Mason: installs LSP servers, formatters, linters
+    {
+        "williamboman/mason-lspconfig.nvim",
+        dependencies = { "williamboman/mason.nvim" },
+        config = function()
+            require("mason-lspconfig").setup({
+                ensure_installed = {
+                    "lua_ls",  -- Lua (for editing your nvim config)
+                    "pyright", -- Python
+                    "ts_ls",   -- TypeScript / JavaScript
+                    "gopls",   -- Go
+                    "clangd",  -- C / C++
+                },
+            })
+        end,
+    },
+
+    -- LSP
+    -- Mason: installs LSP servers, formatters, linters
     {
         "williamboman/mason.nvim",
         config = function()
@@ -112,11 +112,11 @@ require("lazy").setup({
         config = function()
             require("mason-lspconfig").setup({
                 ensure_installed = {
-                    "lua_ls",        -- Lua (for editing your nvim config)
-                    "pyright",       -- Python
-                    "ts_ls",         -- TypeScript / JavaScript
-                    "gopls",         -- Go
-                    "clangd",        -- C / C++
+                    "lua_ls",  -- Lua (for editing your nvim config)
+                    "pyright", -- Python
+                    "ts_ls",   -- TypeScript / JavaScript
+                    "gopls",   -- Go
+                    "clangd",  -- C / C++
                 },
             })
         end,
@@ -188,11 +188,11 @@ require("lazy").setup({
             "hrsh7th/cmp-nvim-lsp",
             "L3MON4D3/LuaSnip",
             "saadparwaiz1/cmp_luasnip",
+            "windwp/nvim-autopairs",
         },
         config = function()
             local cmp = require("cmp")
             local luasnip = require("luasnip")
-
             cmp.setup({
                 snippet = {
                     expand = function(args)
@@ -204,21 +204,37 @@ require("lazy").setup({
                     ["<C-p>"] = cmp.mapping.select_prev_item(),
                     ["<C-Space>"] = cmp.mapping.complete(),
                     ["<C-e>"] = cmp.mapping.abort(),
-                    ["<CR>"] = cmp.mapping.confirm({ select = true }),
+                    -- Only confirm if popup is visible AND something is selected
+                    -- Otherwise let Enter pass through to autopairs
+                    ["<CR>"] = cmp.mapping(function(fallback)
+                        if cmp.visible() and cmp.get_active_entry() then
+                            cmp.confirm({ select = false })
+                        else
+                            fallback()
+                        end
+                    end, { "i", "s" }),
                 }),
                 sources = cmp.config.sources({
                     { name = "nvim_lsp" },
                     { name = "luasnip" },
                 }),
             })
+
+            -- Make autopairs and cmp complement each other
+            local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+            cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
         end,
     },
 
     -- Autopairs
     {
         "windwp/nvim-autopairs",
-        event = "InsertEnter",
-        config = true,
+        config = function()
+            require("nvim-autopairs").setup({
+                map_cr = true,
+                map_bs = true,
+            })
+        end,
     },
 
 })

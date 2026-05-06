@@ -54,5 +54,9 @@ vim.keymap.set("n", "<leader>r", function()
     vim.cmd("split | terminal " .. cmd)
 end, { desc = "Run current file" })
 
+-- VSCode type shit
 vim.keymap.set({ "i", "n" }, "<D-CR>", "<Esc>o", { desc = "New line below" })
 vim.keymap.set({ "i", "n" }, "<D-S-CR>", "<Esc>O", { desc = "New line above" })
+
+-- shift enter bitch.
+vim.keymap.set("i", "<S-CR>", "<CR>", { remap = true })
