@@ -22,11 +22,11 @@ vim.keymap.set("n", "N", "Nzzzv", { desc = "Previous search" })
 vim.keymap.set("x", "<leader>p", [["_dP]], { desc = "Paste without yanking" })
 
 -- let me paste outside of nvim you terrorist
-vim.keymap.set({"n", "v"}, "<leader>y", [["+y]], { desc = "copy to clipboard" })
-vim.keymap.set("n", "<leader>Y", [["+Y]], { desc = "Yank line to system clipboard "})
+vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]], { desc = "copy to clipboard" })
+vim.keymap.set("n", "<leader>Y", [["+Y]], { desc = "Yank line to system clipboard " })
 
 -- delete without storing in history
-vim.keymap.set({"n", "v"}, "<leader>d", [["_d]], { desc = "delete without yanking" })
+vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]], { desc = "delete without yanking" })
 
 -- quickfix list navigation
 vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz", { desc = "Next quickfix item" })
@@ -52,5 +52,7 @@ vim.keymap.set("n", "<leader>r", function()
     end
 
     vim.cmd("split | terminal " .. cmd)
+end, { desc = "Run current file" })
 
-end, {desc = "Run current file"})
+vim.keymap.set({ "i", "n" }, "<D-CR>", "<Esc>o", { desc = "New line below" })
+vim.keymap.set({ "i", "n" }, "<D-S-CR>", "<Esc>O", { desc = "New line above" })
