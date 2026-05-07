@@ -51,9 +51,24 @@ vim.keymap.set("n", "<leader>r", function()
         return
     end
 
+    for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+        if vim.bo[buf].buftype == "terminal" then
+            vim.api.nvim_buf_delete(buf, { force = true })
+        end
+    end
+
+
     local height = math.floor(vim.o.lines * .3)
     vim.cmd(height .. "split | terminal " .. cmd)
 end, { desc = "Run current file" })
+
+vim.keymap.set("n", "<leader>tc", function()
+    for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+        if vim.bo[buf].buftype == "terminal" then
+            vim.api.nvim_buf_delete(buf, { force = true })
+        end
+    end
+end, { desc = "Close all terminals" })
 
 -- VSCode type shit
 vim.keymap.set({ "i", "n" }, "<D-CR>", "<Esc>o", { desc = "New line below" })

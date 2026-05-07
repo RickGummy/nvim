@@ -126,7 +126,9 @@ eval "$(starship init zsh)"
 
 # Git shortcuts
 alias ga='git add .'
-alias gc='git commit -m "IM TOO LAZY TO WRITE ONE SO THIS IS AN AUTO COMMIT, THANKS JIAS FOR THE INSPIRATION LOL"'
+# thanks matthew
+alias gc='git commit -m "IM TOO LAZY TO WRITE ONE SO THIS IS AN AUTO COMMIT, LOL"'
 alias gp='git push'
 alias gs='git status'
-alias gacp='git add . && git commit -m "IM TOO LAZY TO WRITE ONE SO THIS IS AN AUTO COMMIT, THANKS MATTHEW FOR THE INSPIRATION! LOL" && git push'
+# thanks matthew
+alias gacp='git add . && git commit -m "IM TOO LAZY TO WRITE ONE SO THIS IS AN AUTO COMMIT, LOL" && git push'
