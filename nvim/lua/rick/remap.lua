@@ -51,7 +51,8 @@ vim.keymap.set("n", "<leader>r", function()
         return
     end
 
-    vim.cmd("split | terminal " .. cmd)
+    local height = math.floor(vim.o.lines * .3)
+    vim.cmd(height .. "split | terminal " .. cmd)
 end, { desc = "Run current file" })
 
 -- VSCode type shit
