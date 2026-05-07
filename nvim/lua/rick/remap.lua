@@ -34,6 +34,8 @@ vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz", { desc = "Previous quickfix ite
 
 -- run current file
 vim.keymap.set("n", "<leader>r", function()
+    vim.cmd("write")
+
     local ft = vim.bo.filetype
     local file = vim.fn.expand("%")
     local cmd
