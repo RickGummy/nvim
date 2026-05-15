@@ -32,6 +32,13 @@ vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]], { desc = "delete without yank
 vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz", { desc = "Next quickfix item" })
 vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz", { desc = "Previous quickfix item" })
 
+-- Move between splits
+vim.keymap.set("n", "<C-h>", "<C-w>h", { desc = "Focus left split" })
+vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Focus right split" })
+
+-- quick split keymaps
+vim.keymap.set("n", "<leader>h", ":split<CR>", { desc = "Horizontal split" })
+
 -- run current file
 vim.keymap.set("n", "<leader>r", function()
     vim.cmd("write")
@@ -83,11 +90,11 @@ vim.keymap.set("i", "<S-CR>", "<CR>", { remap = true })
 vim.keymap.set("n", "<leader>m", function()
     local word = vim.fn.expand("<cword>")
     vim.cmd("Man " .. word)
-end, { desc = "Man pages"})
+end, { desc = "Man pages" })
 
 vim.keymap.set("n", "<leader>M", function()
     local word = vim.fn.input("Man: ")
     if word ~= "" then
         vim.cmd("vertical Man " .. word)
     end
-end, { desc = "Man page lookup by typing "})
+end, { desc = "Man page lookup by typing " })
