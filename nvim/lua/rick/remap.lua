@@ -78,3 +78,16 @@ vim.keymap.set({ "i", "n" }, "<D-S-CR>", "<Esc>O", { desc = "New line above" })
 
 -- shift enter bitch.
 vim.keymap.set("i", "<S-CR>", "<CR>", { remap = true })
+
+-- map pages - c++
+vim.keymap.set("n", "<leader>m", function()
+    local word = vim.fn.expand("<cword>")
+    vim.cmd("Man " .. word)
+end, { desc = "Man pages"})
+
+vim.keymap.set("n", "<leader>M", function()
+    local word = vim.fn.input("Man: ")
+    if word ~= "" then
+        vim.cmd("vertical Man " .. word)
+    end
+end, { desc = "Man page lookup by typing "})
